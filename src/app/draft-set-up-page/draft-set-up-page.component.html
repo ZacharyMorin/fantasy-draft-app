@@ -1,1 +1,15 @@
-<p>draft-set-up-page works!</p>
+<div class="container">
+  <input
+    type="number"
+    placeholder="Enter # of Teams"
+    class="input input-bordered w-full max-w-xs number-of-teams-input"
+  />
+
+  <div class="team-names-input-container">
+    @for (team of teams; track team.id) {
+
+    } @empty {
+      Enter the amount of teams in your league to get started
+    }
+  </div>
+</div>
