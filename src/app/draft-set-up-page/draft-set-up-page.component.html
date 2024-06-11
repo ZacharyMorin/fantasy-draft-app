@@ -2,14 +2,27 @@
   <input
     type="number"
     placeholder="Enter # of Teams"
+    [formControl]="numOfTeamsCtrl"
     class="input input-bordered w-full max-w-xs number-of-teams-input"
   />
 
-  <div class="team-names-input-container">
-    @for (team of teams; track team.id) {
+  <button class="btn btn-primary" [disabled]="!canStartDraft" (click)="startDraft()">Start Draft</button>
 
-    } @empty {
-      Enter the amount of teams in your league to get started
-    }
+  <div [formGroup]="teamsForm">
+    <div formArrayName="teams" class="form-array-container">
+      <div *ngFor="let team of teamsFormArray.controls; index as i" class='team-ctrl-container'>
+        <span>{{i + 1}}.</span>
+        <input
+          [formControlName]="i"
+          class="input input-bordered w-full max-w-xs"
+          type="text"
+          placeholder="Enter Team Name"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!teamsFormArray.controls.length">
+    Enter the total number of teams in the league to get started
   </div>
 </div>

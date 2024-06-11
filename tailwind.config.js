@@ -2,6 +2,6 @@ module.exports = {
   content: ['./src/**/*.{html,js,ts}'],
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ["synthwave"],
+    themes: ["cupcake", "forest"],
   },
 };
