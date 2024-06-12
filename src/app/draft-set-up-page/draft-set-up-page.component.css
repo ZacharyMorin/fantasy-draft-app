@@ -17,3 +17,12 @@
   width: 345px;
   justify-content: space-between;
 }
+
+.setting-up-draft-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    border-radius: 12px;
+    margin: 150px auto;
+}

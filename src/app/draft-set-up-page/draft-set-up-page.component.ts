@@ -10,7 +10,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { Team } from '../models/team.model';
-import { LoadingService } from '../loading.service';
+import { LoadingService } from '../loading-indicator/loading.service';
 import { LoadingIndicatorComponent } from "../loading-indicator/loading-indicator.component";
 
 const DEFAULT_NUMBER_OF_TEAMS: number = 12;
@@ -40,7 +40,6 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.loadingService.setLoading(true);
     this.updateTeamsForm(DEFAULT_NUMBER_OF_TEAMS);
 
     this.numOfTeamsCtrl.valueChanges
@@ -84,22 +83,26 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   }
 
   startDraft() {
-    // Map form controls to Team interface for API call
-    const teams: Team[] = this.teamsFormArray.controls.map(ctrl => {
-      const team: Team = {
-        id: null,
-        name: ctrl.value,
-        players: []
-      }
-
-      return team
-    });
-
     this.loadingService.setLoading(true);
 
+    // TODO Zach: Remove setTimeout, this is just a mock to test the loading indicator
+    setTimeout(() => {
+      // Map form controls to Team interface for API call
+      const teams: Team[] = this.teamsFormArray.controls.map(ctrl => {
+        const team: Team = {
+          id: null,
+          name: ctrl.value,
+          players: []
+        }
 
-    // Save team names and navigate to draft page after a successful api call
-    this.apiService.setItem('teams', teams);
-    this.router.navigate(["draft"]);
+        return team
+      });
+
+      // Save team names and navigate to draft page after a successful api call
+      this.apiService.setItem('teams', teams);
+      this.router.navigate(["draft"]).then(() => {
+        this.loadingService.setLoading(true);
+      });
+    }, 5000)
   }
 }

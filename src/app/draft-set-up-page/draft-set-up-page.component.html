@@ -1,8 +1,12 @@
 @if (loadingService.loading$ | async) {
-  <app-loading-indicator></app-loading-indicator>
+  <div class="flex bg-primary setting-up-draft-message-container">
+    <h2 class="text-lg">Setting Up Draft</h2>
+    <app-loading-indicator></app-loading-indicator>
+  </div>
 }
 @else {
-  <div class="container">
+  <div class="md:container md:mx-auto">
+    
     <input
       type="number"
       placeholder="Enter # of Teams"
