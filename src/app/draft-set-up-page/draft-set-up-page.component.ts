@@ -10,15 +10,17 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { Team } from '../models/team.model';
+import { LoadingService } from '../loading.service';
+import { LoadingIndicatorComponent } from "../loading-indicator/loading-indicator.component";
 
 const DEFAULT_NUMBER_OF_TEAMS: number = 12;
 
 @Component({
-  selector: 'app-draft-set-up-page',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './draft-set-up-page.component.html',
-  styleUrl: './draft-set-up-page.component.css',
+    selector: 'app-draft-set-up-page',
+    standalone: true,
+    templateUrl: './draft-set-up-page.component.html',
+    styleUrl: './draft-set-up-page.component.css',
+    imports: [ReactiveFormsModule, CommonModule, LoadingIndicatorComponent]
 })
 export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -31,9 +33,14 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
     teams: this.teamsFormArray,
   });
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    public loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
+    this.loadingService.setLoading(true);
     this.updateTeamsForm(DEFAULT_NUMBER_OF_TEAMS);
 
     this.numOfTeamsCtrl.valueChanges
@@ -87,6 +94,9 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
 
       return team
     });
+
+    this.loadingService.setLoading(true);
+
 
     // Save team names and navigate to draft page after a successful api call
     this.apiService.setItem('teams', teams);

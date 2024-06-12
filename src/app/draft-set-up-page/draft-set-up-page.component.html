@@ -1,28 +1,33 @@
-<div class="container">
-  <input
-    type="number"
-    placeholder="Enter # of Teams"
-    [formControl]="numOfTeamsCtrl"
-    class="input input-bordered w-full max-w-xs number-of-teams-input"
-  />
+@if (loadingService.loading$ | async) {
+  <app-loading-indicator></app-loading-indicator>
+}
+@else {
+  <div class="container">
+    <input
+      type="number"
+      placeholder="Enter # of Teams"
+      [formControl]="numOfTeamsCtrl"
+      class="input input-bordered w-full max-w-xs number-of-teams-input"
+    />
 
-  <button class="btn btn-primary" [disabled]="!canStartDraft" (click)="startDraft()">Start Draft</button>
+    <button class="btn btn-primary" [disabled]="!canStartDraft" (click)="startDraft()">Start Draft</button>
 
-  <div [formGroup]="teamsForm">
-    <div formArrayName="teams" class="form-array-container">
-      <div *ngFor="let team of teamsFormArray.controls; index as i" class='team-ctrl-container'>
-        <span>{{i + 1}}.</span>
-        <input
-          [formControlName]="i"
-          class="input input-bordered w-full max-w-xs"
-          type="text"
-          placeholder="Enter Team Name"
-        />
+    <div [formGroup]="teamsForm">
+      <div formArrayName="teams" class="form-array-container">
+        <div *ngFor="let team of teamsFormArray.controls; index as i" class='team-ctrl-container'>
+          <span>{{i + 1}}.</span>
+          <input
+            [formControlName]="i"
+            class="input input-bordered w-full max-w-xs"
+            type="text"
+            placeholder="Enter Team Name"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="!teamsFormArray.controls.length">
-    Enter the total number of teams in the league to get started
+    <div *ngIf="!teamsFormArray.controls.length">
+      Enter the total number of teams in the league to get started
+    </div>
   </div>
-</div>
+}
