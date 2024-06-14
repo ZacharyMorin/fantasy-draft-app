@@ -6,7 +6,7 @@
 }
 @else {
   <div class="md:container md:mx-auto">
-    
+
     <input
       type="number"
       placeholder="Enter # of Teams"
@@ -14,7 +14,13 @@
       class="input input-bordered w-full max-w-xs number-of-teams-input"
     />
 
-    <button class="btn btn-primary" [disabled]="!canStartDraft" (click)="startDraft()">Start Draft</button>
+    <button
+      class="btn btn-primary"
+      [disabled]="!canStartDraft"
+      (click)="startDraft()"
+    >
+      Start Draft
+    </button>
 
     <div [formGroup]="teamsForm">
       <div formArrayName="teams" class="form-array-container">
