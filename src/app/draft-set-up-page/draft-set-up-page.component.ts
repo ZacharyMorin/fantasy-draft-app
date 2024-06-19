@@ -28,7 +28,7 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
     DEFAULT_NUMBER_OF_TEAMS
   );
 
-  teamsFormArray = new FormArray<FormControl<string>>([]);
+  teamsFormArray = new FormArray<FormControl<string | null>>([]);
   teamsForm = new FormGroup({
     teams: this.teamsFormArray,
   });
@@ -68,16 +68,19 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const currentLength = this.teamsFormArray.length;
+    const currentTeamsFormArrayLength = this.teamsFormArray.length;
 
-    if (numOfTeams > currentLength) {
-      for (let i = currentLength; i < numOfTeams; i++) {
-        this.teamsFormArray.push(new FormControl());
+    const leagueMembers: string[] = ['Zach', 'Justin', 'Kevin', 'Andrew', 'Kenny', 'AJ', 'Miles', 'Fish', 'Bozek', 'Connor', 'Jarrett', 'Mikey']
+
+    if (numOfTeams > currentTeamsFormArrayLength) {
+      for (let i = currentTeamsFormArrayLength; i < numOfTeams; i++) {
+        console.log(leagueMembers[i]);
+        this.teamsFormArray.push(new FormControl(leagueMembers[i]));
       }
       return;
     }
 
-    for (let i = currentLength; i > numOfTeams; i--) {
+    for (let i = currentTeamsFormArrayLength; i > numOfTeams; i--) {
       this.teamsFormArray.removeAt(i - 1);
     }
   }

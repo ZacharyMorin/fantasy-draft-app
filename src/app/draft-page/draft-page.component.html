@@ -1,15 +1,49 @@
 <div class="container">
-    <div class="draft-queue-carousel">
-        <div class="draft-queue-card"></div>
-    </div>
-    <div class="main-container">
-        <div class="roster-container">
-            <div class="position"></div>
+    <div class="draft-queue-carousel-container overflow-hidden">
+        <div class="carousel rounded-box flex gap-2 w-full overflow-x-scroll snap-x snap-mandatory">
+          <!-- Loop through teams in league  -->
+           @for (team of teams; track team; let index = $index) {
+            <div class="carousel-item snap-center">
+              <div class="card w-64 bg-primary text-primary-content">
+                <div class="card-body">
+                  <div class="title-container">
+                    <h2 class="card-title">{{team.name}}</h2>
+                    <div class="card-actions justify-end">
+                      <button class="btn btn-sm">See Roster</button>
+                    </div>
+                  </div>
+                  <div class="round-info-container">
+                    <span>Round 1</span>
+                    <span>Pk.{{index + 1}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+           }
         </div>
-        <div class="position-container"></div>
-        <div class="position-container"></div>
-        <div class="position-container"></div>
-        <div class="position-container"></div>
-        <div class="position-container"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Roster-->
+        <div class="roster-container">
+          <div class="position"></div>
+        </div>
+
+        <!-- Available to draft -->
+        <div class="available-position-container">
+          <div class="position"></div>
+        </div>
+        <div class="available-position-container">
+          <div class="position"></div>
+        </div>
+        <div class="available-position-container">
+          <div class="position"></div>
+        </div>
+        <div class="available-position-container">
+          <div class="position"></div>
+        </div>
+        <div class="available-position-container">
+          <div class="position"></div>
+        </div>
     </div>
 </div>

@@ -1,0 +1,26 @@
+.container {
+  margin: 0 auto;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.carousel-item {
+  margin: 5px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.round-info-container {
+  display: flex;
+}
+
+.round-info-container span {
+  margin-right: .2em;
+}
