@@ -9,7 +9,7 @@
                   <div class="title-container">
                     <h2 class="card-title">{{team.name}}</h2>
                     <div class="card-actions justify-end">
-                      <button class="btn btn-sm">See Roster</button>
+                      <button class="btn btn-sm">Roster</button>
                     </div>
                   </div>
                   <div class="round-info-container">
@@ -26,7 +26,11 @@
     <div class="main-container">
         <!-- Roster-->
         <div class="roster-container">
-          <div class="position"></div>
+          @for (player of allPlayers; track player.RK) {
+            <div class="position">
+              {{ player.PLAYER_NAME }}
+            </div>
+          }
         </div>
 
         <!-- Available to draft -->

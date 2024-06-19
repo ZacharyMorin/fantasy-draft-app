@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   template: `
     <span class="loading loading-spinner loading-lg"></span>
   `,
-  styleUrls: ['./loading-indicator.component.css'],
   standalone: true
 })
 export class LoadingIndicatorComponent  {
