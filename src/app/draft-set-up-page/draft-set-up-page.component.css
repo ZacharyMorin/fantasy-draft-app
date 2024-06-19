@@ -26,3 +26,7 @@
     border-radius: 12px;
     margin: 150px auto;
 }
+
+.pick-position-indicator {
+  cursor: pointer;
+}

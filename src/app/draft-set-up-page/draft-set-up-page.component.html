@@ -24,8 +24,12 @@
 
     <div [formGroup]="teamsForm">
       <div formArrayName="teams" class="form-array-container">
-        <div *ngFor="let team of teamsFormArray.controls; index as i" class='team-ctrl-container'>
-          <span>{{i + 1}}.</span>
+        <div 
+          *ngFor="let team of teamsFormArray.controls; index as i" 
+          class='team-ctrl-container '
+          [ngClass]="{'p-2  rounded-lg border border-white-300': selectedDraftPosition === i}"
+        >
+          <span (click)="selectTeam(i)" class="pick-position-indicator">{{i + 1}}.</span>
           <input
             [formControlName]="i"
             class="input input-bordered w-full max-w-xs"

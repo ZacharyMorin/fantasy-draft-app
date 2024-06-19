@@ -23,15 +23,14 @@ const DEFAULT_NUMBER_OF_TEAMS: number = 12;
     imports: [ReactiveFormsModule, CommonModule, LoadingIndicatorComponent]
 })
 export class DraftSetUpPageComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-  numOfTeamsCtrl: FormControl<number | null> = new FormControl(
-    DEFAULT_NUMBER_OF_TEAMS
-  );
-
+  selectedDraftPosition: number | null = null;
+  numOfTeamsCtrl: FormControl<number | null> = new FormControl(DEFAULT_NUMBER_OF_TEAMS);
   teamsFormArray = new FormArray<FormControl<string | null>>([]);
   teamsForm = new FormGroup({
     teams: this.teamsFormArray,
   });
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -83,6 +82,10 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
     for (let i = currentTeamsFormArrayLength; i > numOfTeams; i--) {
       this.teamsFormArray.removeAt(i - 1);
     }
+  }
+
+  selectTeam(index: number): void {
+    this.selectedDraftPosition = index;
   }
 
   startDraft() {

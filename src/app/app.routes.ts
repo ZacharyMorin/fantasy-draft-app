@@ -5,4 +5,5 @@ import { DraftPageComponent } from './draft-page/draft-page.component';
 export const routes: Routes = [
   { path: 'league-set-up', component: DraftSetUpPageComponent },
   { path: 'draft', component: DraftPageComponent },
+  {path: '', redirectTo: 'league-set-up', pathMatch: 'full'}
 ];
