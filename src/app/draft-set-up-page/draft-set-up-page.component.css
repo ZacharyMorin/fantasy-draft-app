@@ -13,9 +13,8 @@
 
 .team-ctrl-container {
   display: flex;
-  align-items: center;
-  width: 345px;
-  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
 }
 
 .setting-up-draft-message-container {

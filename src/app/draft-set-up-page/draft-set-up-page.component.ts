@@ -4,6 +4,7 @@ import {
   ReactiveFormsModule,
   FormArray,
   FormGroup,
+  FormBuilder,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
@@ -15,6 +16,11 @@ import { LoadingIndicatorComponent } from "../loading-indicator/loading-indicato
 
 const DEFAULT_NUMBER_OF_TEAMS: number = 12;
 
+export interface TeamsForm {
+  nameCtrl: FormControl<string | null>;
+  belongsToCurrentUser: FormControl<boolean | null>;
+}
+
 @Component({
     selector: 'app-draft-set-up-page',
     standalone: true,
@@ -25,20 +31,24 @@ const DEFAULT_NUMBER_OF_TEAMS: number = 12;
 export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   selectedDraftPosition: number | null = null;
   numOfTeamsCtrl: FormControl<number | null> = new FormControl(DEFAULT_NUMBER_OF_TEAMS);
-  teamsFormArray = new FormArray<FormControl<string | null>>([]);
-  teamsForm = new FormGroup({
-    teams: this.teamsFormArray,
-  });
+  // teamsFormArray = new FormArray<FormGroup<TeamsForm>>([]);
+  teamsForm: FormGroup | undefined;
 
   private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
     private apiService: ApiService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.teamsForm = this.fb.group({
+      teams: this.fb.array<TeamsForm>([])
+    });
+
+
     this.updateTeamsForm(DEFAULT_NUMBER_OF_TEAMS);
 
     this.numOfTeamsCtrl.valueChanges
@@ -47,6 +57,10 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
         console.log('numOfTeams', numOfTeams);
         this.updateTeamsForm(numOfTeams);
       });
+  }
+
+  get teamsFormArray(): FormArray {
+    return this.teamsForm?.get('teams') as FormArray;
   }
 
   ngOnDestroy(): void {
@@ -73,9 +87,12 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
 
     if (numOfTeams > currentTeamsFormArrayLength) {
       for (let i = currentTeamsFormArrayLength; i < numOfTeams; i++) {
-        console.log(leagueMembers[i]);
-        this.teamsFormArray.push(new FormControl(leagueMembers[i]));
+        this.teamsFormArray.push(this.fb.group({
+          nameCtrl: new FormControl<string | null>(leagueMembers[i]),
+          belongsToCurrentUser: new FormControl<boolean | null>(false)
+        }) as FormGroup<TeamsForm>)
       }
+
       return;
     }
 
@@ -86,6 +103,9 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
 
   selectTeam(index: number): void {
     this.selectedDraftPosition = index;
+    this.teamsFormArray.controls[index].patchValue({belongsToCurrentUser: true});
+
+    console.log(this.teamsFormArray.controls);
   }
 
   startDraft() {
@@ -94,10 +114,13 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
     // TODO Zach: Remove setTimeout, this is just a mock to test the loading indicator
     setTimeout(() => {
       // Map form controls to Team interface for API call
-      const teams: Team[] = this.teamsFormArray.controls.map(ctrl => {
+      const teams: Team[] = this.teamsFormArray.controls.map((group) => {
+        const teamFormGroup: FormGroup<TeamsForm> = group as FormGroup<TeamsForm>;
+
         const team: Team = {
           id: null,
-          name: ctrl.value,
+          name: teamFormGroup.controls.nameCtrl.value,
+          belongsToCurrentUser: teamFormGroup.controls.belongsToCurrentUser.value ?? false,
           players: []
         }
 

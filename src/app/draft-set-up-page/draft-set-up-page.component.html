@@ -22,24 +22,25 @@
       Start Draft
     </button>
 
-    <div [formGroup]="teamsForm">
-      <div formArrayName="teams" class="form-array-container">
+    <form *ngIf="teamsForm" [formGroup]="teamsForm" class="px-8">
+      <div formArrayName="teams" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div 
           *ngFor="let team of teamsFormArray.controls; index as i" 
-          class='team-ctrl-container '
-          [ngClass]="{'p-2  rounded-lg border border-white-300': selectedDraftPosition === i}"
+          [formGroupName]="i"
+          class="team-ctrl-container"
+          [ngClass]="{'p-2 rounded-lg border border-white-300': selectedDraftPosition === i}"
         >
           <span (click)="selectTeam(i)" class="pick-position-indicator">{{i + 1}}.</span>
           <input
-            [formControlName]="i"
+            formControlName="nameCtrl"
             class="input input-bordered w-full max-w-xs"
             type="text"
             placeholder="Enter Team Name"
           />
         </div>
       </div>
-    </div>
-
+    </form>
+  
     <div *ngIf="!teamsFormArray.controls.length">
       Enter the total number of teams in the league to get started
     </div>
