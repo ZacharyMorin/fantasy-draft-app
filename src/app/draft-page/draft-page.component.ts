@@ -4,14 +4,16 @@ import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
 import { map, toArray } from 'rxjs';
 import { Player } from '../models/player.model';
+import { PlayerCardComponent } from "../player-card/player-card.component";
+import { PlayerTableComponent } from "../player-table/player-table.component";
 
 
 @Component({
-  selector: 'app-draft-page',
-  standalone: true,
-  imports: [],
-  templateUrl: './draft-page.component.html',
-  styleUrl: './draft-page.component.css'
+    selector: 'app-draft-page',
+    standalone: true,
+    templateUrl: './draft-page.component.html',
+    styleUrl: './draft-page.component.css',
+    imports: [PlayerCardComponent, PlayerTableComponent]
 })
 export class DraftPageComponent implements OnInit {
 

@@ -27,20 +27,16 @@
         <!-- Roster-->
         <div role="tablist" class="tabs tabs-bordered container">
           <a role="tab" class="tab">My Roster</a>
-          <a role="tab" class="tab">All</a>
-          <a role="tab" class="tab tab-active">QB</a>
+          <a role="tab" class="tab tab-active">All</a>
+          <a role="tab" class="tab">QB</a>
           <a role="tab" class="tab">RB</a>
           <a role="tab" class="tab">WR</a>
           <a role="tab" class="tab">TE</a>
         </div>
 
-        <ul class="roster-container">
-          @for (player of allPlayers; track player.RK) {
-            <li class="position">
-              {{ player.PLAYER_NAME }}
-            </li>
-          }
-        </ul>
+        <div class="roster-container">
+          <app-player-table [players]="allPlayers"/>
+        </div>
 
         <!-- Available to draft -->
         <div class="available-position-container">
