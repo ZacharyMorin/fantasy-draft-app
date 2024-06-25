@@ -27,32 +27,32 @@
         <!-- Roster-->
         <div role="tablist" class="tabs tabs-bordered container">
           <a role="tab" class="tab">My Roster</a>
-          <a role="tab" class="tab tab-active">All</a>
-          <a role="tab" class="tab">QB</a>
-          <a role="tab" class="tab">RB</a>
-          <a role="tab" class="tab">WR</a>
-          <a role="tab" class="tab">TE</a>
+          <a (click)="selectTab(tabs.All)" [class.tab-active]="selectedTab === tabs.All" role="tab" class="tab" >All</a>
+          <a (click)="selectTab(tabs.QB)" [class.tab-active]="selectedTab === tabs.QB" role="tab" class="tab">QB</a>
+          <a (click)="selectTab(tabs.RB)" [class.tab-active]="selectedTab === tabs.RB" role="tab" class="tab">RB</a>
+          <a (click)="selectTab(tabs.WR)" [class.tab-active]="selectedTab === tabs.WR" role="tab" class="tab">WR</a>
+          <a (click)="selectTab(tabs.TE)" [class.tab-active]="selectedTab === tabs.TE" role="tab" class="tab">TE</a>
         </div>
 
-        <div class="roster-container">
-          <app-player-table [players]="allPlayers"/>
+        <div *ngIf="selectedTab === tabs.All" class="roster-container">
+          <!-- Content for All -->
+          <app-player-table [players]="allPlayers"></app-player-table>
         </div>
-
-        <!-- Available to draft -->
-        <div class="available-position-container">
-          <div class="position"></div>
+        <div *ngIf="selectedTab === tabs.QB" class="roster-container">
+          <!-- Content for QB -->
+          <app-player-table [players]="playersByPosition(tabs.QB)"></app-player-table>
         </div>
-        <div class="available-position-container">
-          <div class="position"></div>
+        <div *ngIf="selectedTab === tabs.RB" class="roster-container">
+          <!-- Content for RB -->
+          <app-player-table [players]="playersByPosition(tabs.RB)"></app-player-table>
         </div>
-        <div class="available-position-container">
-          <div class="position"></div>
+        <div *ngIf="selectedTab === tabs.WR" class="roster-container">
+          <!-- Content for WR -->
+          <app-player-table [players]="playersByPosition(tabs.WR)"></app-player-table>
         </div>
-        <div class="available-position-container">
-          <div class="position"></div>
-        </div>
-        <div class="available-position-container">
-          <div class="position"></div>
+        <div *ngIf="selectedTab === tabs.TE" class="roster-container">
+          <!-- Content for TE -->
+          <app-player-table [players]="playersByPosition(tabs.TE)"></app-player-table>
         </div>
     </div>
 </div>

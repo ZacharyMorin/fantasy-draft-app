@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Player } from '../models/player.model';
 import { PlayerCardComponent } from "../player-card/player-card.component";
 import { PlayerTableComponent } from "../player-table/player-table.component";
+import { CommonModule } from '@angular/common';
 
 
 export enum Tab {
@@ -21,12 +22,15 @@ export enum Tab {
     standalone: true,
     templateUrl: './draft-page.component.html',
     styleUrl: './draft-page.component.css',
-    imports: [PlayerCardComponent, PlayerTableComponent]
+    imports: [PlayerCardComponent, PlayerTableComponent, CommonModule]
 })
 export class DraftPageComponent implements OnInit {
+  selectedTab: Tab = Tab.All;
 
   teams: Team[] = [];
   allPlayers: Player[] = [];
+
+  tabs = Tab; // Reference the Enum to use in the template
 
 
   constructor(private apiService: ApiService, private http: HttpClient) {}
@@ -39,7 +43,6 @@ export class DraftPageComponent implements OnInit {
     const url: string = '/assets/FantasyPros_2024_Draft_ALL_Ranking.json';
     this.http.get<any[]>(url).subscribe((response) => {
       this.allPlayers = [...response];
-      console.log(this.allPlayers);
     });
   }
 
@@ -48,4 +51,7 @@ export class DraftPageComponent implements OnInit {
     return this.allPlayers.filter(player => player.POS.startsWith(position));
   }
 
+  selectTab(tab: Tab): void {
+    this.selectedTab = tab;
+  }
 }
