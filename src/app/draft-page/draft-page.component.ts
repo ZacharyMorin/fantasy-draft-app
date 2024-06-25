@@ -47,11 +47,12 @@ export class DraftPageComponent implements OnInit {
   }
 
 
-  playersByPosition(position: string): Player[] {
-    return this.allPlayers.filter(player => player.POS.startsWith(position));
-  }
-
   selectTab(tab: Tab): void {
     this.selectedTab = tab;
+  }
+
+
+  playersByPosition(position: string): Player[] {
+    return this.allPlayers.filter(player => player.POS.startsWith(position));
   }
 }
