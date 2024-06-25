@@ -2,10 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../models/team.model';
 import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
-import { map, toArray } from 'rxjs';
 import { Player } from '../models/player.model';
 import { PlayerCardComponent } from "../player-card/player-card.component";
 import { PlayerTableComponent } from "../player-table/player-table.component";
+
+
+export enum Tab {
+  All = 'All',
+  QB = 'QB',
+  RB = 'RB',
+  WR = 'WR',
+  TE = 'TE'
+}
 
 
 @Component({
@@ -20,7 +28,9 @@ export class DraftPageComponent implements OnInit {
   teams: Team[] = [];
   allPlayers: Player[] = [];
 
+
   constructor(private apiService: ApiService, private http: HttpClient) {}
+
 
   ngOnInit(): void {
     this.teams = this.apiService.getItem('teams');
@@ -31,6 +41,11 @@ export class DraftPageComponent implements OnInit {
       this.allPlayers = [...response];
       console.log(this.allPlayers);
     });
+  }
+
+
+  playersByPosition(position: string): Player[] {
+    return this.allPlayers.filter(player => player.POS.startsWith(position));
   }
 
 }
