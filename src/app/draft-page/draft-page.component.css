@@ -6,6 +6,11 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  padding: 14px 24px;
+}
+
+.draft-queue-carousel-container {
+  margin-bottom: 1.5em;
 }
 
 .carousel-item {

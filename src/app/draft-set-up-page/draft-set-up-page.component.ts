@@ -31,7 +31,6 @@ export interface TeamsForm {
 export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   selectedDraftPosition: number | null = null;
   numOfTeamsCtrl: FormControl<number | null> = new FormControl(DEFAULT_NUMBER_OF_TEAMS);
-  // teamsFormArray = new FormArray<FormGroup<TeamsForm>>([]);
   teamsForm: FormGroup | undefined;
 
   private destroy$ = new Subject<void>();
@@ -47,7 +46,6 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
     this.teamsForm = this.fb.group({
       teams: this.fb.array<TeamsForm>([])
     });
-
 
     this.updateTeamsForm(DEFAULT_NUMBER_OF_TEAMS);
 

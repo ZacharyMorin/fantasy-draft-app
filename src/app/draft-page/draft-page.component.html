@@ -34,25 +34,32 @@
           <a (click)="selectTab(tabs.TE)" [class.tab-active]="selectedTab === tabs.TE" role="tab" class="tab">TE</a>
         </div>
 
-        <div *ngIf="selectedTab === tabs.All" class="roster-container">
-          <!-- Content for All -->
-          <app-player-table [players]="allPlayers"></app-player-table>
+        <div [ngSwitch]="selectedTab" class="roster-container">
+          <div *ngSwitchCase="tabs.All">
+            <!-- Content for All -->
+            <app-player-table [players]="allPlayers"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.QB">
+            <!-- Content for QB -->
+            <app-player-table [players]="playersByPosition(tabs.QB)"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.RB">
+            <!-- Content for RB -->
+            <app-player-table [players]="playersByPosition(tabs.RB)"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.WR">
+            <!-- Content for WR -->
+            <app-player-table [players]="playersByPosition(tabs.WR)"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.TE">
+            <!-- Content for TE -->
+            <app-player-table [players]="playersByPosition(tabs.TE)"></app-player-table>
+          </div>
+          <div *ngSwitchDefault>
+            <!-- Default content if none of the cases match -->
+            <p>Select a tab to view the players.</p>
+          </div>
         </div>
-        <div *ngIf="selectedTab === tabs.QB" class="roster-container">
-          <!-- Content for QB -->
-          <app-player-table [players]="playersByPosition(tabs.QB)"></app-player-table>
-        </div>
-        <div *ngIf="selectedTab === tabs.RB" class="roster-container">
-          <!-- Content for RB -->
-          <app-player-table [players]="playersByPosition(tabs.RB)"></app-player-table>
-        </div>
-        <div *ngIf="selectedTab === tabs.WR" class="roster-container">
-          <!-- Content for WR -->
-          <app-player-table [players]="playersByPosition(tabs.WR)"></app-player-table>
-        </div>
-        <div *ngIf="selectedTab === tabs.TE" class="roster-container">
-          <!-- Content for TE -->
-          <app-player-table [players]="playersByPosition(tabs.TE)"></app-player-table>
-        </div>
+
     </div>
 </div>

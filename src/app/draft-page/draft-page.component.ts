@@ -38,7 +38,6 @@ export class DraftPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.teams = this.apiService.getItem('teams');
-    console.log(this.teams);
 
     const url: string = '/assets/FantasyPros_2024_Draft_ALL_Ranking.json';
     this.http.get<any[]>(url).subscribe((response) => {
