@@ -11,6 +11,9 @@
 
 .draft-queue-carousel-container {
   margin-bottom: 1.5em;
+  display: flex;
+  overflow-x: scroll;
+  gap: .5em;
 }
 
 .carousel-item {
@@ -24,8 +27,18 @@
 
 .round-info-container {
   display: flex;
+  flex-direction: column;
 }
 
 .round-info-container span {
   margin-right: .2em;
+}
+
+.card-title {
+  font-size: .9rem;
+  line-height: .5rem;
+}
+
+.round, .pick {
+  font-size: .75rem;
 }
