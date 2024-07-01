@@ -19,9 +19,23 @@
         @for (player of players; track player.RK) {
             <tr>
                 <th>
-                    <label>
-                    <input type="checkbox" class="checkbox" />
-                    </label>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 ellipsis" (click)="openModal()">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                  </svg>
+                  <dialog id="my_modal_1" class="modal" #my_modal_1>
+                    <div class="modal-box">
+                      <h3 class="text-lg font-bold">{{player.PLAYER_NAME}}</h3>
+                      <p>SOS: {{player.SOS_SEASON}}</p>
+                      <p>Bye Week: {{player.BYE_WEEK}}</p>
+                      <div class="modal-action">
+                        <form method="dialog">
+                          <button class="btn">Close</button>
+                          <button class="btn bg-primary">Draft</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
                 </th>
                 <td>
                     <div class="flex items-center gap-3">
@@ -48,15 +62,5 @@
             </tr>
         }
       </tbody>
-      <!-- foot -->
-      <tfoot>
-        <!-- <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-          <th></th>
-        </tr> -->
-      </tfoot>
     </table>
   </div>

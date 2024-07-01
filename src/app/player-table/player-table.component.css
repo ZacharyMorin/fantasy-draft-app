@@ -1,3 +1,11 @@
 .table-container {
-    height: 70vh;
+  height: 70vh;
+}
+
+.ellipsis {
+  cursor: pointer;
+}
+
+form > button:nth-child(1) {
+  margin-right: 10px;
 }
