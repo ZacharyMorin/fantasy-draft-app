@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="draft-queue-carousel-container container mx-auto">
+        <!-- Loop through teams in league  -->
+          @for (team of teams; track team; let index = $index) {
+          <div class="card bg-primary text-primary-content" style="width: 175px;">
+            <div class="card-body">
+              <div class="title-container">
+                <h2 class="card-title">{{team.name}}</h2>
+                <div class="card-actions justify-end">
+                  <button class="btn btn-ghost btn-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                      <path fill-rule="evenodd" d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="round-info-container">
+                <span class="round">Round 1</span>
+                <span class="pick">Pk.{{index + 1}}</span>
+              </div>
+            </div>
+          </div>
+          }
+    </div>
+
+    <div class="main-container">
+        <!-- Roster-->
+        <div role="tablist" class="tabs tabs-bordered container">
+          <a role="tab" class="tab">My Roster</a>
+          <a (click)="selectTab(tabs.All)" [class.tab-active]="selectedTab === tabs.All" role="tab" class="tab" >All</a>
+          <a (click)="selectTab(tabs.QB)" [class.tab-active]="selectedTab === tabs.QB" role="tab" class="tab">QB</a>
+          <a (click)="selectTab(tabs.RB)" [class.tab-active]="selectedTab === tabs.RB" role="tab" class="tab">RB</a>
+          <a (click)="selectTab(tabs.WR)" [class.tab-active]="selectedTab === tabs.WR" role="tab" class="tab">WR</a>
+          <a (click)="selectTab(tabs.TE)" [class.tab-active]="selectedTab === tabs.TE" role="tab" class="tab">TE</a>
+        </div>
+
+        <div [ngSwitch]="selectedTab" class="roster-container">
+          <div *ngSwitchCase="tabs.All">
+            <!-- Content for All -->
+            <app-player-table [players]="allPlayers"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.QB">
+            <!-- Content for QB -->
+            <app-player-table [players]="playersByPosition(tabs.QB)"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.RB">
+            <!-- Content for RB -->
+            <app-player-table [players]="playersByPosition(tabs.RB)"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.WR">
+            <!-- Content for WR -->
+            <app-player-table [players]="playersByPosition(tabs.WR)"></app-player-table>
+          </div>
+          <div *ngSwitchCase="tabs.TE">
+            <!-- Content for TE -->
+            <app-player-table [players]="playersByPosition(tabs.TE)"></app-player-table>
+          </div>
+          <div *ngSwitchDefault>
+            <!-- Default content if none of the cases match -->
+            <p>Select a tab to view the players.</p>
+          </div>
+        </div>
+
+    </div>
+</div>

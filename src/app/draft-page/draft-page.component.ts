@@ -6,6 +6,7 @@ import { Player } from '../models/player.model';
 import { PlayerCardComponent } from "../player-card/player-card.component";
 import { PlayerTableComponent } from "../player-table/player-table.component";
 import { CommonModule } from '@angular/common';
+import { CarouselComponent } from "../carousel/carousel.component";
 
 
 export enum Tab {
@@ -22,7 +23,7 @@ export enum Tab {
     standalone: true,
     templateUrl: './draft-page.component.html',
     styleUrl: './draft-page.component.css',
-    imports: [PlayerCardComponent, PlayerTableComponent, CommonModule]
+    imports: [PlayerCardComponent, PlayerTableComponent, CommonModule, CarouselComponent]
 })
 export class DraftPageComponent implements OnInit {
   selectedTab: Tab = Tab.All;
@@ -53,5 +54,9 @@ export class DraftPageComponent implements OnInit {
 
   playersByPosition(position: string): Player[] {
     return this.allPlayers.filter(player => player.POS.startsWith(position));
+  }
+
+  draftPlayer(player: Player) {
+    console.log(`selected player ${player.PLAYER_NAME}`);
   }
 }

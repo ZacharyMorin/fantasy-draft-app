@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="current-pick-container">
+    <h1 class="font-mono text-lg">Round {{currentRound}}, Pick {{currentPickIndex + 1}}</h1>
+    <h2 class="font-mono text-lg">{{getCurrentTeam()}} is on the clock</h2>
+  </div>
+
+  <div class="upcoming-teams">
+    <h3 class="font-mono text-lg">Draft Queue:</h3>
+
+    <div class="draft-order">
+      @for (team of teams; track team; let index = $index) {
+        @if(getCurrentTeam() === team.name) {
+          <div class="font-mono text-sm underline">
+            {{team.name}}
+          </div>
+        } @else {
+          <div class="font-mono text-sm">
+            {{team.name}}
+          </div>
+        }
+
+        @if (!isLastTeam(index)) {
+          <div class="divider divider-horizontal"></div>
+        }
+      }
+    </div>
+  </div>
+</div>

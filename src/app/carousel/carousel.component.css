@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+.upcoming-teams {
+  display: flex;
+  flex-direction: column;
+}
+
+.draft-order {
+  display: flex;
+}
+
+.divider-horizontal {
+  margin-left: .2rem;
+  margin-right: .2rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: auto;
+  width: 1rem;
+}

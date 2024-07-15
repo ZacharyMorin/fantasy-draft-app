@@ -17,49 +17,58 @@
       <tbody>
         <!-- row -->
         @for (player of players; track player.RK) {
-            <tr>
-                <th>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 ellipsis" (click)="openModal()">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                  </svg>
-                  <dialog id="my_modal_1" class="modal" #my_modal_1>
-                    <div class="modal-box">
-                      <h3 class="text-lg font-bold">{{player.PLAYER_NAME}}</h3>
-                      <p>SOS: {{player.SOS_SEASON}}</p>
-                      <p>Bye Week: {{player.BYE_WEEK}}</p>
-                      <div class="modal-action">
-                        <form method="dialog">
-                          <button class="btn">Close</button>
-                          <button class="btn bg-primary">Draft</button>
-                        </form>
-                      </div>
-                    </div>
-                  </dialog>
-                </th>
-                <td>
-                    <div class="flex items-center gap-3">
-                        <!-- <div class="avatar">
-                        <div class="mask mask-squircle h-12 w-12">
-                        <img
-                            src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
-                            alt="Avatar Tailwind CSS Component" />
-                        </div>
-                    </div> -->
-                        <div>
-                            <div class="font-bold">{{player.PLAYER_NAME}}</div>
-                            <div class="text-sm opacity-50">{{player.POS}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="text-sm opacity-50">{{player.RK}}</div>
-                </td>
-                <td>{{player.TEAM}}</td>
-                <th>
-                    <button class="btn btn-ghost btn-xs">details</button>
-                </th>
-            </tr>
+          <tr>
+            <th>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6 ellipsis"
+                (click)="openModal(player)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
+                />
+              </svg>
+              <dialog id="my_modal_1" class="modal" #my_modal_1>
+                <div class="modal-box">
+                  <h3 class="text-lg font-bold">{{ selectedPlayer?.PLAYER_NAME }}</h3>
+                  <p>SOS: {{ selectedPlayer?.SOS_SEASON }}</p>
+                  <p>Bye Week: {{ selectedPlayer?.BYE_WEEK }}</p>
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <button class="btn">Close</button>
+                      <button
+                        class="btn bg-primary"
+                        (click)="draftPlayer(selectedPlayer)"
+                      >
+                        Draft
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
+            </th>
+            <td>
+              <div class="flex items-center gap-3">
+                <div>
+                  <div class="font-bold">{{ player.PLAYER_NAME }}</div>
+                  <div class="text-sm opacity-50">{{ player.POS }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="text-sm opacity-50">{{ player.RK }}</div>
+            </td>
+            <td>{{ player.TEAM }}</td>
+            <th>
+              <button class="btn btn-ghost btn-xs">details</button>
+            </th>
+          </tr>
         }
       </tbody>
     </table>
