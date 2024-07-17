@@ -7,6 +7,7 @@ import { PlayerCardComponent } from "../player-card/player-card.component";
 import { PlayerTableComponent } from "../player-table/player-table.component";
 import { CommonModule } from '@angular/common';
 import { CarouselComponent } from "../carousel/carousel.component";
+import { DraftManagerService } from '../draft-manager.service';
 
 
 export enum Tab {
@@ -34,11 +35,12 @@ export class DraftPageComponent implements OnInit {
   tabs = Tab; // Reference the Enum to use in the template
 
 
-  constructor(private apiService: ApiService, private http: HttpClient) {}
+  constructor(private apiService: ApiService, private http: HttpClient, private draftManagerService: DraftManagerService) {}
 
 
   ngOnInit(): void {
-    this.teams = this.apiService.getItem('teams');
+    this.teams = this.draftManagerService.getTeams();
+
 
     const url: string = '/assets/FantasyPros_2024_Draft_ALL_Ranking.json';
     this.http.get<any[]>(url).subscribe((response) => {

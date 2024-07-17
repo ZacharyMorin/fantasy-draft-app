@@ -4,7 +4,5 @@ import { Team } from "./team.model";
 export interface Draft {
     players: Player[];
     teams: Team[];
-    draftOrder: number[];
-    
-    
+    draftOrder: { teamID: number | null; teamName: string | null }[];
 }

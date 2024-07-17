@@ -13,6 +13,7 @@ import { ApiService } from '../api.service';
 import { Team } from '../models/team.model';
 import { LoadingService } from '../loading-indicator/loading.service';
 import { LoadingIndicatorComponent } from "../loading-indicator/loading-indicator.component";
+import { DraftManagerService } from '../draft-manager.service';
 
 const DEFAULT_NUMBER_OF_TEAMS: number = 12;
 
@@ -38,6 +39,7 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private apiService: ApiService,
+    private draftManagerService: DraftManagerService,
     public loadingService: LoadingService,
     private fb: FormBuilder
   ) {}
@@ -109,27 +111,30 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   startDraft() {
     this.loadingService.setLoading(true);
 
-    // TODO Zach: Remove setTimeout, this is just a mock to test the loading indicator
-    setTimeout(() => {
-      // Map form controls to Team interface for API call
-      const teams: Team[] = this.teamsFormArray.controls.map((group) => {
-        const teamFormGroup: FormGroup<TeamsForm> = group as FormGroup<TeamsForm>;
+    // Map form controls to Team interface
+    let teamID = 1;
+    const teams: Team[] = this.teamsFormArray.controls.map((group) => {
+      const teamFormGroup: FormGroup<TeamsForm> = group as FormGroup<TeamsForm>;
 
-        const team: Team = {
-          id: null,
-          name: teamFormGroup.controls.nameCtrl.value,
-          belongsToCurrentUser: teamFormGroup.controls.belongsToCurrentUser.value ?? false,
-          players: []
-        }
+      const team: Team = {
+        id: teamID++,
+        name: teamFormGroup.controls.nameCtrl.value,
+        belongsToCurrentUser: teamFormGroup.controls.belongsToCurrentUser.value ?? false,
+        players: []
+      }
 
-        return team
-      });
+      return team
+    });
 
-      // Save team names and navigate to draft page after a successful api call
-      this.apiService.setItem('teams', teams);
-      this.router.navigate(["draft"]).then(() => {
-        this.loadingService.setLoading(true);
-      });
-    }, 5000)
+    this.draftManagerService.setDraft({
+      players: [], 
+      teams: teams, 
+      draftOrder: teams.map(t => ({teamID: t.id , teamName: t.name}))
+    });
+
+
+    this.router.navigate(["draft"]).then(() => {
+      this.loadingService.setLoading(true);
+    });
   }
 }
