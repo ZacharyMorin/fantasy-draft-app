@@ -13,7 +13,6 @@
 .draft-queue-carousel-container {
   margin-bottom: 1.5em;
   display: flex;
-  overflow-x: scroll;
   gap: .5em;
 }
 
