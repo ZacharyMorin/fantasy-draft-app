@@ -39,13 +39,8 @@ export class DraftPageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.teams = this.draftManagerService.getTeams();
-
-
-    const url: string = '/assets/FantasyPros_2024_Draft_ALL_Ranking.json';
-    this.http.get<any[]>(url).subscribe((response) => {
-      this.allPlayers = [...response];
-    });
+    this.teams = this.draftManagerService.teams;
+    this.allPlayers = this.draftManagerService.allPlayers;
   }
 
 
@@ -60,5 +55,7 @@ export class DraftPageComponent implements OnInit {
 
   draftPlayer(player: Player) {
     console.log(`selected player ${player.PLAYER_NAME}`);
+
+    this.draftManagerService.assignPlayerToTeam(player);
   }
 }

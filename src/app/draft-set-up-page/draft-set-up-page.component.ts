@@ -104,20 +104,17 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
   selectTeam(index: number): void {
     this.selectedDraftPosition = index;
     this.teamsFormArray.controls[index].patchValue({belongsToCurrentUser: true});
-
-    console.log(this.teamsFormArray.controls);
   }
 
   startDraft() {
-    this.loadingService.setLoading(true);
-
     // Map form controls to Team interface
-    let teamID = 1;
-    const teams: Team[] = this.teamsFormArray.controls.map((group) => {
-      const teamFormGroup: FormGroup<TeamsForm> = group as FormGroup<TeamsForm>;
+    let teamIDCounter = 1; // Future Zach this will be assigned by the database
+    const teams: Team[] = this.teamsFormArray.controls.map((formGroup) => {
+      // For some reason formGroup is not the type of FormGroup<TeamsForm>?
+      const teamFormGroup: FormGroup<TeamsForm> = formGroup as FormGroup<TeamsForm>;
 
       const team: Team = {
-        id: teamID++,
+        id: teamIDCounter++,
         name: teamFormGroup.controls.nameCtrl.value,
         belongsToCurrentUser: teamFormGroup.controls.belongsToCurrentUser.value ?? false,
         players: []
@@ -126,15 +123,14 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
       return team
     });
 
-    this.draftManagerService.setDraft({
-      players: [], 
+    this.draftManagerService.initializeDraft$({
       teams: teams, 
-      draftOrder: teams.map(t => ({teamID: t.id , teamName: t.name}))
-    });
-
-
-    this.router.navigate(["draft"]).then(() => {
-      this.loadingService.setLoading(true);
+      draftOrder: teams.map(t => ({teamID: t.id , teamName: t.name})) // The order is set by the user in the form
+    }).subscribe((draftIsInitialized) => {
+      // Navigate to draft page on successfull draft initialization (TODO: handle error case)
+      if (draftIsInitialized) {
+        this.router.navigate(["draft"]);
+      }
     });
   }
 }

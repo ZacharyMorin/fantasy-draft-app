@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Team } from '../models/team.model';
+import { DraftManagerService } from '../draft-manager.service';
 
 @Component({
   selector: 'app-carousel',
@@ -15,6 +16,9 @@ export class CarouselComponent {
   currentPickIndex = 0;
   isReverse = false;
   currentTeam = this.teams[0];
+
+
+  constructor(public draftManagerService: DraftManagerService) {}
 
   getCurrentTeam(): string | null {
     return this.teams[this.currentPickIndex].name;

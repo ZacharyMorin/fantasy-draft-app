@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
+export class ApiService { // All Local Storage calls are synchronous
   constructor() {}
 
   // Save data to localStorage
