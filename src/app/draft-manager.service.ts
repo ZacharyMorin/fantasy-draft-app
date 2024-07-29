@@ -31,9 +31,16 @@ export class DraftManagerService {
       // Get the list of all players for the draft
       this.http.get<any[]>(this.playerCsvUrl).subscribe(response => {
         this.draft = _draft;
+
         this.allPlayers = [...response];
+        this.allPlayers.map(player => {
+          player.ASSIGNED_TEAM_ID = null;
+          return player;
+        })
+
         this.apiService.setItem('teams', this.draft.teams);
         this.teams = this.draft.teams;
+        this.currentTeam = this.teams[0];
 
         sub.next(true);
         sub.complete();
@@ -50,9 +57,20 @@ export class DraftManagerService {
   }
 
 
-  public nextPick() {
+  public assignPlayerToTeam(player: Player) {
+    player.ASSIGNED_TEAM_ID = this.currentTeam.id;
+    this.currentTeam.players.push(player);
+
+    this.apiService.setItem('teams', this.teams);
+
+    this.nextPick();
+  }
+
+
+  public nextPick() { 
     if (this.isReverse) {
       this.currentPickIndex--;
+
       if (this.currentPickIndex < 0) {
         this.currentPickIndex = 0;
         this.isReverse = false;
@@ -60,27 +78,15 @@ export class DraftManagerService {
       }
     } else {
       this.currentPickIndex++;
+      
       if (this.currentPickIndex >= this.teams.length) {
         this.currentPickIndex = this.teams.length - 1;
         this.isReverse = true;
         this.currentRound++;
       }
     }
+
+    //update the current team
+    this.currentTeam = this.teams[this.currentPickIndex];
   }
-
-  public makePick() {
-    this.nextPick();
-  }
-
-  public isLastTeam(index: number): boolean {
-    return index === this.teams.length - 1;
-  }
-
-
-  public assignPlayerToTeam(player: Player) {
-
-
-  }
-
-
 }

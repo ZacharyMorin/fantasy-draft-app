@@ -12,43 +12,11 @@ import { DraftManagerService } from '../draft-manager.service';
 export class CarouselComponent {
   @Input() teams: Team[] = [];
 
-  currentRound = 1;
-  currentPickIndex = 0;
-  isReverse = false;
-  currentTeam = this.teams[0];
-
 
   constructor(public draftManagerService: DraftManagerService) {}
 
   getCurrentTeam(): string | null {
-    return this.teams[this.currentPickIndex].name;
-  }
-
-  nextPick() {
-    if (this.isReverse) {
-      this.currentPickIndex--;
-      if (this.currentPickIndex < 0) {
-        this.currentPickIndex = 0;
-        this.isReverse = false;
-        this.currentRound++;
-      }
-    } else {
-      this.currentPickIndex++;
-      if (this.currentPickIndex >= this.teams.length) {
-        this.currentPickIndex = this.teams.length - 1;
-        this.isReverse = true;
-        this.currentRound++;
-      }
-    }
-  }
-
-  makePick() {
-    console.log(
-      `Round ${this.currentRound}, Pick ${
-        this.currentPickIndex + 1
-      }: ${this.getCurrentTeam()} is on the clock`
-    );
-    this.nextPick();
+    return this.draftManagerService.getTeamOnClock() ?? '';
   }
 
   isLastTeam(index: number): boolean {

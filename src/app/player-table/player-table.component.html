@@ -4,9 +4,6 @@
       <thead>
         <tr>
           <th>
-            <!-- <label>
-              <input type="checkbox" class="checkbox" />
-            </label> -->
           </th>
           <th>Name</th>
           <th>Ranking</th>
@@ -17,7 +14,7 @@
       <tbody>
         <!-- row -->
         @for (player of players; track player.RK) {
-          <tr>
+          <tr [ngClass]="{'bg-slate-800': player.ASSIGNED_TEAM_ID !== null}">
             <th>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -6,4 +6,5 @@ export interface Player {
     SOS_SEASON: string;
     TEAM: string;
     TIERS: number;
+    ASSIGNED_TEAM_ID: number | null;
 }

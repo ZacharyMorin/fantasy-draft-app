@@ -53,9 +53,8 @@ export class DraftPageComponent implements OnInit {
     return this.allPlayers.filter(player => player.POS.startsWith(position));
   }
 
-  draftPlayer(player: Player) {
-    console.log(`selected player ${player.PLAYER_NAME}`);
 
+  draftPlayer(player: Player) {
     this.draftManagerService.assignPlayerToTeam(player);
   }
 }

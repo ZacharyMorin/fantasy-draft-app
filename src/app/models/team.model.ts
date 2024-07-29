@@ -1,8 +1,8 @@
 import { Player } from "./player.model";
 
 export interface Team {
-  id: number | null;
-  name: string | null;
+  id: number;
+  name: string;
   belongsToCurrentUser: boolean;
   players: Player[];
 }

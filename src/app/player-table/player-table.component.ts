@@ -1,23 +1,20 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Player } from '../models/player.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-player-table',
   standalone: true,
   templateUrl: './player-table.component.html',
   styleUrl: './player-table.component.css',
-  imports: []
+  imports: [CommonModule]
 })
-export class PlayerTableComponent implements AfterViewInit {
+export class PlayerTableComponent {
   @Input() players: Player[] = [];
   @ViewChild("my_modal_1") toggle: ElementRef | undefined;
   @Output() draftedPlayer: EventEmitter<Player> = new EventEmitter();
 
   selectedPlayer: any;
-
-  ngAfterViewInit(): void {
-    console.log(this.toggle);
-  }
 
   openModal(player: any) {
     this.selectedPlayer = player;
@@ -25,7 +22,6 @@ export class PlayerTableComponent implements AfterViewInit {
   }
 
   draftPlayer(player: Player) {
-    console.log(player);
     this.draftedPlayer.emit(player);
     this.toggle?.nativeElement.close();
   }
