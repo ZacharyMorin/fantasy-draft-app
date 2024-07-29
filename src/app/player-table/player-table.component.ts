@@ -8,16 +8,12 @@ import { Player } from '../models/player.model';
   styleUrl: './player-table.component.css',
   imports: []
 })
-export class PlayerTableComponent implements AfterViewInit {
+export class PlayerTableComponent {
   @Input() players: Player[] = [];
   @ViewChild("my_modal_1") toggle: ElementRef | undefined;
   @Output() draftedPlayer: EventEmitter<Player> = new EventEmitter();
 
   selectedPlayer: any;
-
-  ngAfterViewInit(): void {
-    console.log(this.toggle);
-  }
 
   openModal(player: any) {
     this.selectedPlayer = player;
@@ -25,7 +21,6 @@ export class PlayerTableComponent implements AfterViewInit {
   }
 
   draftPlayer(player: Player) {
-    console.log(player);
     this.draftedPlayer.emit(player);
     this.toggle?.nativeElement.close();
   }

@@ -54,7 +54,6 @@ export class DraftSetUpPageComponent implements OnInit, OnDestroy {
     this.numOfTeamsCtrl.valueChanges
       .pipe(takeUntil(this.destroy$), debounceTime(500))
       .subscribe((numOfTeams) => {
-        console.log('numOfTeams', numOfTeams);
         this.updateTeamsForm(numOfTeams);
       });
   }

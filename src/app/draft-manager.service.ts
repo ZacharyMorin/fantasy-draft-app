@@ -34,6 +34,7 @@ export class DraftManagerService {
         this.allPlayers = [...response];
         this.apiService.setItem('teams', this.draft.teams);
         this.teams = this.draft.teams;
+        this.currentTeam = this.teams[0];
 
         sub.next(true);
         sub.complete();
@@ -50,7 +51,13 @@ export class DraftManagerService {
   }
 
 
-  public nextPick() {
+  public assignPlayerToTeam(player: Player) {
+    this.currentTeam.players.push(player);
+    this.nextPick();
+  }
+
+
+  public nextPick() { //TODO Zach: update the current team
     if (this.isReverse) {
       this.currentPickIndex--;
       if (this.currentPickIndex < 0) {
@@ -67,20 +74,4 @@ export class DraftManagerService {
       }
     }
   }
-
-  public makePick() {
-    this.nextPick();
-  }
-
-  public isLastTeam(index: number): boolean {
-    return index === this.teams.length - 1;
-  }
-
-
-  public assignPlayerToTeam(player: Player) {
-
-
-  }
-
-
 }
