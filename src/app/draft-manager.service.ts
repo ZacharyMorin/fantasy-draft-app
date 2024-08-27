@@ -23,6 +23,11 @@ export class DraftManagerService {
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
 
+  get currentPickBelongsToUser() {
+    return this.teams[this.currentPickIndex].belongsToCurrentUser;
+  }
+
+
   /**
    * Returns an Observable which emits true when the draft has been successfully initialized.
    */
@@ -35,6 +40,7 @@ export class DraftManagerService {
         this.allPlayers = [...response];
         this.allPlayers.map(player => {
           player.ASSIGNED_TEAM_ID = null;
+          player.BELONGS_TO_CURRENT_USER = false;
           return player;
         })
 
