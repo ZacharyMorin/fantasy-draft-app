@@ -19,35 +19,30 @@
             <!-- Content for All -->
             <app-player-table
               [players]="allPlayers"
-              (draftedPlayer)="draftPlayer($event)"
             ></app-player-table>
           </div>
           <div *ngSwitchCase="tabs.QB">
             <!-- Content for QB -->
             <app-player-table
               [players]="playersByPosition(tabs.QB)"
-              (draftedPlayer)="draftPlayer($event)"
             ></app-player-table>
           </div>
           <div *ngSwitchCase="tabs.RB">
             <!-- Content for RB -->
             <app-player-table
               [players]="playersByPosition(tabs.RB)"
-              (draftedPlayer)="draftPlayer($event)"
             ></app-player-table>
           </div>
           <div *ngSwitchCase="tabs.WR">
             <!-- Content for WR -->
             <app-player-table
               [players]="playersByPosition(tabs.WR)"
-              (draftedPlayer)="draftPlayer($event)"
             ></app-player-table>
           </div>
           <div *ngSwitchCase="tabs.TE">
             <!-- Content for TE -->
             <app-player-table
               [players]="playersByPosition(tabs.TE)"
-              (draftedPlayer)="draftPlayer($event)"
             ></app-player-table>
           </div>
           <div *ngSwitchDefault>

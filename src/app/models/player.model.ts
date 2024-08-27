@@ -7,4 +7,5 @@ export interface Player {
     TEAM: string;
     TIERS: number;
     ASSIGNED_TEAM_ID: number | null;
+    BELONGS_TO_CURRENT_USER: boolean;
 }
