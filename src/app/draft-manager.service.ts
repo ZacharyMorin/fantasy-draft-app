@@ -12,7 +12,7 @@ import { Team } from './models/team.model';
 export class DraftManagerService {
   private draft: Draft | null = null;
   private playerCsvUrl = '/assets/FantasyPros_2024_Draft_ALL_Ranking.json';
-  public allPlayers: Player[] = []; 
+  public allPlayers: Player[] = [];
   public teams: Team[] = [];
 
   public currentRound = 1;
@@ -55,7 +55,7 @@ export class DraftManagerService {
   }
 
   /**
-   * 
+   *
    * @returns The team name this is currently making a draft pick
    */
   public getTeamOnClock(): string | null {
@@ -73,7 +73,7 @@ export class DraftManagerService {
   }
 
 
-  public nextPick() { 
+  public nextPick() {
     if (this.isReverse) {
       this.currentPickIndex--;
 
@@ -84,7 +84,7 @@ export class DraftManagerService {
       }
     } else {
       this.currentPickIndex++;
-      
+
       if (this.currentPickIndex >= this.teams.length) {
         this.currentPickIndex = this.teams.length - 1;
         this.isReverse = true;
